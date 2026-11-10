@@ -8,7 +8,7 @@ import "dotenv/config";
 import { GoogleGenAI } from "@google/genai";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 if (!process.env.GEMINI_API_KEY) {
   console.warn(
@@ -59,7 +59,6 @@ const upload = multer({
 });
 
 app.use(express.json());
-app.use(express.static("public"));
 
 async function extractText(file, buffer) {
   const ext = file.originalname.split(".").pop().toLowerCase();

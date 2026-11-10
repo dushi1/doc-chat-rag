@@ -4,6 +4,9 @@ Upload documents (PDF, DOCX, TXT, MD) and ask questions about them. Answers
 stream in token-by-token and come from a Gemini-powered retrieval-augmented
 generation (RAG) pipeline with citations.
 
+**Stack:** Next.js frontend (`web/`) + Express API (`server.js`). The Next.js
+dev server proxies `/api/*` to Express, so everything runs on one URL.
+
 ## How it works
 
 1. **Upload** — text is extracted (`pdf-parse` for PDF, `mammoth` for DOCX),
@@ -32,13 +35,15 @@ generation (RAG) pipeline with citations.
 
 ```bash
 cd rag-doc-qa
-npm install
-cp .env.example .env   # add your Gemini API key from https://aistudio.google.com/apikey
-npm start
+npm install          # Express API + concurrently
+npm run web:install  # Next.js frontend (first time only; or: cd web && npm install)
+cp .env.example .env # add your Gemini API key from https://aistudio.google.com/apikey
+npm run dev          # runs API (port 3001) + Next.js (port 3000) together
 ```
 
 Open http://localhost:3000, drop in a document, and ask questions.
-Set `PORT` to run on a different port.
+`npm run server` runs the API alone; `npm run web:build && npm start` runs a
+production build of the frontend.
 
 ## API
 

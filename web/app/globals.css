@@ -1,0 +1,144 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0f1117;
+  color: #e6e8ee;
+  height: 100vh;
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 300px;
+  background: #161a23;
+  border-right: 1px solid #262b38;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 14px;
+}
+.sidebar h1 { font-size: 18px; font-weight: 600; }
+.sidebar .subtitle { font-size: 12px; color: #8b93a7; line-height: 1.5; }
+
+.upload-zone {
+  border: 2px dashed #333c52;
+  border-radius: 10px;
+  padding: 24px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 13px;
+  color: #8b93a7;
+}
+.upload-zone:hover, .upload-zone.dragover { border-color: #6c8cff; background: #1b2130; }
+.upload-zone .icon { font-size: 26px; display: block; margin-bottom: 6px; }
+
+.doc-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+
+.doc-item {
+  background: #1c2230;
+  border: 1px solid #262b38;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.doc-item .name { font-weight: 600; word-break: break-all; }
+.doc-item .meta { color: #8b93a7; margin-top: 3px; }
+.doc-item .ocr-badge { color: #f0b429; font-size: 10px; }
+.doc-item button {
+  background: none; border: none; color: #ff6b6b; cursor: pointer;
+  font-size: 15px; padding: 2px 4px; flex-shrink: 0;
+}
+
+.main { flex: 1; display: flex; flex-direction: column; }
+
+.messages {
+  flex: 1; overflow-y: auto; padding: 24px 32px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.empty-state {
+  margin: auto; text-align: center; color: #5b6478; max-width: 460px;
+}
+.empty-state h2 { color: #8b93a7; font-size: 20px; margin-bottom: 10px; }
+
+.msg {
+  max-width: 72%; padding: 12px 16px; border-radius: 14px;
+  line-height: 1.55; font-size: 14px; white-space: pre-wrap;
+}
+.msg.user { align-self: flex-end; background: #3b5bdb; border-bottom-right-radius: 4px; }
+.msg.bot {
+  align-self: flex-start; background: #1c2230;
+  border: 1px solid #262b38; border-bottom-left-radius: 4px;
+}
+
+.cite {
+  display: inline-block; background: #2c3346; color: #8fa7ff;
+  border-radius: 4px; padding: 0 5px; margin: 0 1px;
+  font-size: 11px; cursor: pointer; user-select: none;
+}
+.cite:hover { background: #3b5bdb; color: #fff; }
+
+.sources {
+  margin-top: 10px; padding-top: 10px; border-top: 1px solid #2c3346;
+  font-size: 11px; color: #8b93a7;
+}
+.sources summary { cursor: pointer; }
+.sources .chunk {
+  margin-top: 8px; padding: 8px; background: #141824;
+  border-radius: 6px; transition: background 0.4s;
+}
+.sources .chunk.flash { background: #33417a; }
+
+.typing { align-self: flex-start; color: #8b93a7; font-size: 13px; padding: 8px 4px; }
+
+.error-msg {
+  align-self: center; background: #3d1f24; color: #ff9b9b;
+  border: 1px solid #6b2e36; border-radius: 8px; padding: 10px 16px; font-size: 13px;
+}
+
+.mode-bar {
+  display: flex; gap: 8px; padding: 12px 24px 0;
+  background: #161a23; align-items: center;
+}
+.mode-btn {
+  background: #1c2230; color: #8b93a7; border: 1px solid #2c3346;
+  border-radius: 8px; padding: 7px 16px; font-size: 13px; cursor: pointer;
+}
+.mode-btn.active { background: #3b5bdb; color: #fff; border-color: #3b5bdb; }
+
+.doc-select {
+  display: none; background: #1c2230; color: #e6e8ee;
+  border: 1px solid #2c3346; border-radius: 8px; padding: 7px 10px;
+  font-size: 13px; max-width: 240px; margin-left: auto;
+}
+.doc-select.visible { display: block; }
+
+.input-bar {
+  display: flex; gap: 10px; padding: 12px 24px 16px; background: #161a23;
+}
+.input-bar input {
+  flex: 1; background: #1c2230; border: 1px solid #2c3346; border-radius: 10px;
+  padding: 12px 16px; color: #e6e8ee; font-size: 14px; outline: none;
+}
+.input-bar input:focus { border-color: #6c8cff; }
+.input-bar button {
+  background: #3b5bdb; color: white; border: none; border-radius: 10px;
+  padding: 0 22px; font-size: 14px; cursor: pointer; font-weight: 600;
+}
+.input-bar button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #fff5; border-top-color: #fff; border-radius: 50%;
+  animation: spin 0.7s linear infinite; vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

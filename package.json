@@ -1,15 +1,21 @@
 {
   "name": "rag-doc-qa",
-  "version": "1.0.0",
-  "description": "AI Document Q&A — RAG chatbot over uploaded PDFs",
+  "version": "2.0.0",
+  "description": "AI Document Q&A — RAG chatbot (Next.js UI + Express API)",
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "server": "node server.js",
+    "server:dev": "node --watch server.js",
+    "web": "npm run dev --prefix web",
+    "web:install": "npm install --prefix web",
+    "web:build": "npm run build --prefix web",
+    "dev": "concurrently -k -n api,web -c blue,green \"npm:server:dev\" \"npm:web\"",
+    "start": "npm run build --prefix web && concurrently -k -n api,web -c blue,green \"npm:server\" \"npm:start --prefix web\""
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
+    "concurrently": "^9.2.1",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mammoth": "^1.13.0",
